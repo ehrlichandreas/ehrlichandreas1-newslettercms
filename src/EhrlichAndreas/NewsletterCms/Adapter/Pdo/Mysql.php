@@ -139,11 +139,18 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $tableAddresseeToProject = $this->getTableName($this->tableAddresseeToProject);
         
         $tableAddresseeToTopic = $this->getTableName($this->tableAddresseeToTopic);
+		
+        $tableEmailTemplate = $this->getTableName($this->tableEmailTemplate);
         
         $tableProject = $this->getTableName($this->tableProject);
         
         $tableTopic = $this->getTableName($this->tableTopic);
 		
+        $tableTopicToProject = $this->getTableName($this->tableTopicToProject);
+		
+        
+        $queries = array();
+        
         
         $query = array();
 
@@ -157,11 +164,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
         $query[] = 'COLLATE = utf8_unicode_ci ';
         $query[] = 'AUTO_INCREMENT = 1; ';
-
-        $query = implode("\n", $query);
-        $queryVersion = $query;
 		
-		$queryVersion = str_replace('%table%', $tableVersion, $queryVersion);
+		$queries[] = str_replace('%table%', $tableVersion, implode("\n", $query));
         
         
         $query = array();
@@ -179,22 +183,23 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`secondname` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = '`email` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = '`registered` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
-        $query[] = '`ip` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`registered_ip` VARCHAR(45) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`confirmed` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`confirmed_ip` VARCHAR(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`banned` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`unsubscribed` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`unsubscribed_ip` VARCHAR(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = 'PRIMARY KEY (`addressee_id`), ';
         $query[] = 'KEY `idx_email` (`email` (255)), ';
         $query[] = 'KEY `idx_name` (`name` (255)), ';
-        $query[] = 'KEY `idx_ip` (`ip` (45)) ';
+        $query[] = 'KEY `idx_registered_ip` (`registered_ip` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
         $query[] = 'COLLATE = utf8_unicode_ci ';
         $query[] = 'AUTO_INCREMENT = 1; ';
-
-        $query = implode("\n", $query);
-        
-        $queryAddressee = $query;
 		
-		$queryAddressee = str_replace('%table%', $tableAddressee, $queryAddressee);
+		$queries[] = str_replace('%table%', $tableAddressee, implode("\n", $query));
 
         
         $query = array();
@@ -218,12 +223,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
         $query[] = 'COLLATE = utf8_unicode_ci ';
         $query[] = 'AUTO_INCREMENT = 1; ';
-
-        $query = implode("\n", $query);
-        
-        $queryAddresseeProperties = $query;
 		
-		$queryAddresseeProperties = str_replace('%table%', $tableAddresseeProperties, $queryAddresseeProperties);
+		$queries[] = str_replace('%table%', $tableAddresseeProperties, implode("\n", $query));
 
         
         $query = array();
@@ -244,12 +245,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
         $query[] = 'COLLATE = utf8_unicode_ci ';
         $query[] = 'AUTO_INCREMENT = 1; ';
-
-        $query = implode("\n", $query);
-        
-        $queryAddresseeToProject = $query;
 		
-		$queryAddresseeToProject = str_replace('%table%', $tableAddresseeToProject, $queryAddresseeToProject);
+		$queries[] = str_replace('%table%', $tableAddresseeToProject, implode("\n", $query));
 
         
         $query = array();
@@ -270,11 +267,114 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
         $query[] = 'COLLATE = utf8_unicode_ci ';
         $query[] = 'AUTO_INCREMENT = 1; ';
-
-        $query = implode("\n", $query);
-        
-        $queryAddresseeToTopic = $query;
 		
-		$queryAddresseeToTopic = str_replace('%table%', $tableAddresseeToTopic, $queryAddresseeToTopic);
+		$queries[] = str_replace('%table%', $tableAddresseeToTopic, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`email_template_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'KEY `idx_topic_id_project_id` (`topic_id`, `project_id`), ';
+        $query[] = 'KEY `idx_project_id_topic_id` (`project_id`, `topic_id`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableEmailTemplate, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`project_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`project_id`), ';
+        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
+        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableProject, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`topic_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`topic_id`), ';
+        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
+        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableTopic, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`topic_project_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`topic_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`project_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = 'PRIMARY KEY (`topic_project_id`), ';
+        $query[] = 'KEY `idx_topic_id_project_id` (`topic_id`, `project_id`), ';
+        $query[] = 'KEY `idx_project_id_topic_id` (`project_id`, `topic_id`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableTopicToProject, implode("\n", $query));
+		
+		
+		if ($versionDb < $version)
+		{
+            foreach ($queries as $query)
+            {
+                $stmt = $dbAdapter->query($query);
+
+                $stmt->closeCursor();
+            }
+            
+			$this->_setVersion($dbAdapter, $tableVersion, $version);
+		}
+		
+		return $this;
     }
 }
