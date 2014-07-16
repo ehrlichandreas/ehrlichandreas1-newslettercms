@@ -189,14 +189,14 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
                 'project_id'    => $project_id,
             );
 
-            $this->addTopicToProject($param);
+            $this->addTopicToProjectExt($param);
         }
         
         
         return $addressee_id;
     }
     
-    public function addTopicToProject($params = array())
+    public function addTopicToProjectExt($params = array())
     {
         if (count($params) == 0)
         {
