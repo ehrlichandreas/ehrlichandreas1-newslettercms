@@ -353,14 +353,16 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsEmailTemplate ()
     {
-        //TODO
         return array
 		(
 			'email_template_id' => 'email_template_id',
             'published'         => 'published',
             'updated'           => 'updated',
             'enabled'           => 'enabled',
-			'' => '',
+			'name'              => 'name',
+			'title'             => 'title',
+			'description'       => 'description',
+			'content'           => 'content',
 		);
     }
 
@@ -387,14 +389,17 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsNewsletterFinal ()
     {
-        //TODO
         return array
 		(
-			'newsletter_final_id'   => 'newsletter_final_id',
-            'published'             => 'published',
-            'updated'               => 'updated',
-            'enabled'               => 'enabled',
-			'' => '',
+			'newsletter_final_id'       => 'newsletter_final_id',
+            'published'                 => 'published',
+            'updated'                   => 'updated',
+            'enabled'                   => 'enabled',
+			'newsletter_template_id'    => 'newsletter_template_id',
+            'name'                      => 'name',
+            'title'                     => 'title',
+            'description'               => 'description',
+			'content'                   => 'content',
 		);
     }
 
@@ -404,14 +409,16 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsNewsletterTemplate ()
     {
-        //TODO
         return array
 		(
 			'newsletter_template_id'    => 'newsletter_template_id',
             'published'                 => 'published',
             'updated'                   => 'updated',
             'enabled'                   => 'enabled',
-			'' => '',
+            'name'                      => 'name',
+            'title'                     => 'title',
+            'description'               => 'description',
+			'content'                   => 'content',
 		);
     }
 
@@ -421,14 +428,14 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsNewsletterQueueReady ()
     {
-        //TODO
         return array
 		(
 			'newsletter_queue_ready_id' => 'newsletter_queue_ready_id',
             'published'                 => 'published',
             'updated'                   => 'updated',
             'enabled'                   => 'enabled',
-			'' => '',
+			'newsletter_final_id'       => 'newsletter_final_id',
+			'addressee_id'              => 'addressee_id',
 		);
     }
 
@@ -438,14 +445,14 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsNewsletterQueueUnready ()
     {
-        //TODO
         return array
 		(
 			'newsletter_queue_unready_id'   => 'newsletter_queue_unready_id',
             'published'                     => 'published',
             'updated'                       => 'updated',
             'enabled'                       => 'enabled',
-			'' => '',
+			'newsletter_final_id'           => 'newsletter_final_id',
+			'addressee_id'                  => 'addressee_id',
 		);
     }
 
@@ -473,14 +480,17 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsTextFinal ()
     {
-        //TODO
         return array
 		(
-            'text_final_id' => 'text_final_id',
-            'published'     => 'published',
-            'updated'       => 'updated',
-            'enabled'       => 'enabled',
-			'' => '',
+            'text_final_id'     => 'text_final_id',
+            'published'         => 'published',
+            'updated'           => 'updated',
+            'enabled'           => 'enabled',
+			'text_template_id'  => 'text_template_id',
+            'name'              => 'name',
+            'title'             => 'title',
+            'description'       => 'description',
+			'content'           => 'content',
 		);
     }
 
@@ -490,14 +500,16 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
      */
     public function getFieldsTextTemplate ()
     {
-        //TODO
         return array
 		(
 			'text_template_id'  => 'text_template_id',
             'published'         => 'published',
             'updated'           => 'updated',
             'enabled'           => 'enabled',
-			'' => '',
+            'name'              => 'name',
+            'title'             => 'title',
+            'description'       => 'description',
+			'content'           => 'content',
 		);
     }
 
@@ -934,7 +946,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -947,9 +958,21 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['name']))
         {
-            $params[''] = '';
+            $params['name'] = '';
+        }
+        if (! isset($params['title']))
+        {
+            $params['title'] = '';
+        }
+        if (! isset($params['description']))
+        {
+            $params['description'] = '';
+        }
+        if (! isset($params['content']))
+        {
+            $params['content'] = '';
         }
 		
 		$function = 'EmailTemplate';
@@ -1006,7 +1029,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -1019,9 +1041,25 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['newsletter_template_id']))
         {
-            $params[''] = '';
+            $params['newsletter_template_id'] = '0';
+        }
+        if (! isset($params['name']))
+        {
+            $params['name'] = '';
+        }
+        if (! isset($params['title']))
+        {
+            $params['title'] = '';
+        }
+        if (! isset($params['description']))
+        {
+            $params['description'] = '';
+        }
+        if (! isset($params['content']))
+        {
+            $params['content'] = '';
         }
 		
 		$function = 'NewsletterFinal';
@@ -1042,7 +1080,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -1055,9 +1092,21 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['name']))
         {
-            $params[''] = '';
+            $params['name'] = '';
+        }
+        if (! isset($params['title']))
+        {
+            $params['title'] = '';
+        }
+        if (! isset($params['description']))
+        {
+            $params['description'] = '';
+        }
+        if (! isset($params['content']))
+        {
+            $params['content'] = '';
         }
 		
 		$function = 'NewsletterTemplate';
@@ -1078,7 +1127,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -1091,9 +1139,13 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['newsletter_final_id']))
         {
-            $params[''] = '';
+            $params['newsletter_final_id'] = '0';
+        }
+        if (! isset($params['addressee_id']))
+        {
+            $params['addressee_id'] = '0';
         }
 		
 		$function = 'NewsletterQueueReady';
@@ -1114,7 +1166,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -1127,9 +1178,13 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['newsletter_final_id']))
         {
-            $params[''] = '';
+            $params['newsletter_final_id'] = '0';
+        }
+        if (! isset($params['addressee_id']))
+        {
+            $params['addressee_id'] = '0';
         }
 		
 		$function = 'NewsletterQueueUnready';
@@ -1193,7 +1248,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -1206,9 +1260,25 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['text_template_id']))
         {
-            $params[''] = '';
+            $params['text_template_id'] = '0';
+        }
+        if (! isset($params['name']))
+        {
+            $params['name'] = '';
+        }
+        if (! isset($params['title']))
+        {
+            $params['title'] = '';
+        }
+        if (! isset($params['description']))
+        {
+            $params['description'] = '';
+        }
+        if (! isset($params['content']))
+        {
+            $params['content'] = '';
         }
 		
 		$function = 'TextFinal';
@@ -1229,7 +1299,6 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
             return false;
         }
 		
-        //TODO
         if (! isset($params['published']) || $params['published'] == '0000-00-00 00:00:00' || $params['published'] == '')
         {
             $params['published'] = date('Y-m-d H:i:s', time());
@@ -1242,9 +1311,21 @@ class EhrlichAndreas_NewsletterCms_Module extends EhrlichAndreas_AbstractCms_Mod
         {
             $params['enabled'] = '1';
         }
-        if (! isset($params['']))
+        if (! isset($params['name']))
         {
-            $params[''] = '';
+            $params['name'] = '';
+        }
+        if (! isset($params['title']))
+        {
+            $params['title'] = '';
+        }
+        if (! isset($params['description']))
+        {
+            $params['description'] = '';
+        }
+        if (! isset($params['content']))
+        {
+            $params['content'] = '';
         }
 		
 		$function = 'TextTemplate';

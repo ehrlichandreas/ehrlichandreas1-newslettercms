@@ -142,7 +142,19 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
 		
         $tableEmailTemplate = $this->getTableName($this->tableEmailTemplate);
         
+        $tableNewsletterFinal = $this->getTableName($this->tableNewsletterFinal);
+        
+        $tableNewsletterTemplate = $this->getTableName($this->tableNewsletterTemplate);
+        
+        $tableNewsletterQueueReady = $this->getTableName($this->tableNewsletterQueueReady);
+        
+        $tableNewsletterQueueUnready = $this->getTableName($this->tableNewsletterQueueUnready);
+        
         $tableProject = $this->getTableName($this->tableProject);
+        
+        $tableTextFinal = $this->getTableName($this->tableTextFinal);
+        
+        $tableTextTemplate = $this->getTableName($this->tableTextTemplate);
         
         $tableTopic = $this->getTableName($this->tableTopic);
 		
@@ -299,6 +311,100 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
 
         $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
         $query[] = '( ';
+        $query[] = '`newsletter_final_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`newsletter_template_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'KEY `idx_newsletter_template_id` (`newsletter_template_id`), ';
+        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
+        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableNewsletterFinal, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`newsletter_template_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`newsletter_template_id`), ';
+        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
+        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableNewsletterTemplate, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`newsletter_queue_ready_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`newsletter_final_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`addressee_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'KEY `newsletter_final_id` (`newsletter_final_id`), ';
+        $query[] = 'KEY `addressee_id` (`addressee_id`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableNewsletterQueueReady, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`newsletter_queue_unready_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`newsletter_final_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`addressee_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
+        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'KEY `newsletter_final_id` (`newsletter_final_id`), ';
+        $query[] = 'KEY `addressee_id` (`addressee_id`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableNewsletterQueueUnready, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
         $query[] = '`project_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
         $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
         $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
@@ -322,14 +428,17 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
 
         $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
         $query[] = '( ';
-        $query[] = '`topic_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`text_final_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
         $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
         $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
         $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`text_template_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
         $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
-        $query[] = 'PRIMARY KEY (`topic_id`), ';
+        $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`text_final_id`), ';
+        $query[] = 'KEY `idx_text_template_id` (`text_template_id`), ';
         $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
         $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
         $query[] = ') ';
@@ -338,7 +447,31 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'COLLATE = utf8_unicode_ci ';
         $query[] = 'AUTO_INCREMENT = 1; ';
 		
-		$queries[] = str_replace('%table%', $tableTopic, implode("\n", $query));
+		$queries[] = str_replace('%table%', $tableTextFinal, implode("\n", $query));
+
+        
+        $query = array();
+
+        $query[] = 'CREATE TABLE IF NOT EXISTS `%table%` ';
+        $query[] = '( ';
+        $query[] = '`text_template_id` BIGINT(19) unsigned NOT NULL AUTO_INCREMENT, ';
+        $query[] = '`published` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`updated` DATETIME NOT NULL DEFAULT \'0001-01-01 00:00:00\', ';
+        $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
+        $query[] = '`name` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
+        $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
+        $query[] = 'PRIMARY KEY (`text_template_id`), ';
+        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
+        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = ') ';
+        $query[] = 'ENGINE = InnoDB ';
+        $query[] = 'DEFAULT CHARACTER SET = utf8 ';
+        $query[] = 'COLLATE = utf8_unicode_ci ';
+        $query[] = 'AUTO_INCREMENT = 1; ';
+		
+		$queries[] = str_replace('%table%', $tableTextTemplate, implode("\n", $query));
 
         
         $query = array();
