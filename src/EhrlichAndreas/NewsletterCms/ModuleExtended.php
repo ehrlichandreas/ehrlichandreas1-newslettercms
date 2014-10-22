@@ -657,6 +657,19 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
 
                 $this->addNewsletterQueueReady($param);
             }
+            else
+            {
+                $param = array
+                (
+                    'where' => array
+                    (
+                        'addressee_id'          => $addressee_id,
+                        'newsletter_final_id'   => $id,
+                    ),
+                );
+
+                $this->editNewsletterQueueReady($param);
+            }
         }
     }
     
@@ -709,6 +722,19 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
                 );
 
                 $this->addNewsletterQueueUnready($param);
+            }
+            else
+            {
+                $param = array
+                (
+                    'where' => array
+                    (
+                        'addressee_id'          => $addressee_id,
+                        'newsletter_final_id'   => $id,
+                    ),
+                );
+
+                $this->editNewsletterQueueUnready($param);
             }
         }
     }
