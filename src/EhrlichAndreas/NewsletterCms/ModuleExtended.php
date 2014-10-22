@@ -634,11 +634,29 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         {
             $param = array
             (
-                'addressee_id'          => $addressee_id,
-                'newsletter_final_id'   => $id,
+                'cols'  => array
+                (
+                    'count' => new EhrlichAndreas_Db_Expr('count(newsletter_queue_ready_id)'),
+                ),
+                'where' => array
+                (
+                    'addressee_id'          => $addressee_id,
+                    'newsletter_final_id'   => $id,
+                ),
             );
+            
+            $rowset = $this->getNewsletterQueueReady($param);
+            
+            if (count($rowset) == 0 || $rowset[0]['count'] == 0)
+            {
+                $param = array
+                (
+                    'addressee_id'          => $addressee_id,
+                    'newsletter_final_id'   => $id,
+                );
 
-            $this->addNewsletterQueueReady($param);
+                $this->addNewsletterQueueReady($param);
+            }
         }
     }
     
@@ -669,11 +687,29 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         {
             $param = array
             (
-                'addressee_id'          => $addressee_id,
-                'newsletter_final_id'   => $id,
+                'cols'  => array
+                (
+                    'count' => new EhrlichAndreas_Db_Expr('count(newsletter_queue_unready_id)'),
+                ),
+                'where' => array
+                (
+                    'addressee_id'          => $addressee_id,
+                    'newsletter_final_id'   => $id,
+                ),
             );
+            
+            $rowset = $this->getNewsletterQueueUnready($param);
+            
+            if (count($rowset) == 0 || $rowset[0]['count'] == 0)
+            {
+                $param = array
+                (
+                    'addressee_id'          => $addressee_id,
+                    'newsletter_final_id'   => $id,
+                );
 
-            $this->addNewsletterQueueUnready($param);
+                $this->addNewsletterQueueUnready($param);
+            }
         }
     }
 }
