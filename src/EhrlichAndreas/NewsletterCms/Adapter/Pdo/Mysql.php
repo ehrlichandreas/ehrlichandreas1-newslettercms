@@ -367,7 +367,7 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
         $query[] = '`newsletter_final_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
         $query[] = '`addressee_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
-        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'PRIMARY KEY (`newsletter_queue_ready_id`), ';
         $query[] = 'KEY `newsletter_final_id` (`newsletter_final_id`), ';
         $query[] = 'KEY `addressee_id` (`addressee_id`) ';
         $query[] = ') ';
@@ -389,7 +389,7 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`enabled` INT(5) NOT NULL DEFAULT \'0\', ';
         $query[] = '`newsletter_final_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
         $query[] = '`addressee_id` BIGINT(19) NOT NULL DEFAULT \'0\', ';
-        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'PRIMARY KEY (`newsletter_queue_unready_id`), ';
         $query[] = 'KEY `newsletter_final_id` (`newsletter_final_id`), ';
         $query[] = 'KEY `addressee_id` (`addressee_id`) ';
         $query[] = ') ';
