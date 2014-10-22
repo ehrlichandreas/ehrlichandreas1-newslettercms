@@ -538,5 +538,143 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         
         return $edited;
     }
+    
+    /**
+     * 
+     * @param mixed $addressee_id
+     * @return array
+     */
+    public function getReadNewsletterByAddresseeId($addressee_id)
+    {
+        $param = array
+        (
+            'addressee_id'  => $addressee_id,
+        );
+        
+        $queueUnreadyRowset = $this->getFieldsNewsletterQueueReady($param);
+        
+        $newsletter_final_id = array();
+        
+        foreach ($queueUnreadyRowset as $queueUnready)
+        {
+            $newsletter_final_id[$queueUnready['newsletter_final_id']] = $queueUnready['newsletter_final_id'];
+        }
+        
+        if (!empty($newsletter_final_id))
+        {
+            $param = array
+            (
+                'newsletter_final_id'   => $newsletter_final_id,
+            );
+        
+            return $this->getFieldsNewsletterFinal($param);
+        }
+        
+        return array();
+    }
+    
+    /**
+     * 
+     * @param mixed $addressee_id
+     * @return array
+     */
+    public function getUnreadNewsletterByAddresseeId($addressee_id)
+    {
+        $param = array
+        (
+            'addressee_id'  => $addressee_id,
+        );
+        
+        $queueUnreadyRowset = $this->getNewsletterQueueUnready($param);
+        
+        $newsletter_final_id = array();
+        
+        foreach ($queueUnreadyRowset as $queueUnready)
+        {
+            $newsletter_final_id[$queueUnready['newsletter_final_id']] = $queueUnready['newsletter_final_id'];
+        }
+        
+        if (!empty($newsletter_final_id))
+        {
+            $param = array
+            (
+                'newsletter_final_id'   => $newsletter_final_id,
+            );
+        
+            return $this->getNewsletterFinal($param);
+        }
+        
+        return array();
+    }
+    
+    /**
+     * 
+     * @param mixed $addressee_id
+     * @return array
+     */
+    public function setReadNewsletter($addressee_id, $newsletter_final_id)
+    {
+        if (is_scalar($newsletter_final_id))
+        {
+            $newsletter_final_id = array
+            (
+                $newsletter_final_id,
+            );
+        }
+        
+        $param = array
+        (
+            'addressee_id'          => $addressee_id,
+            'newsletter_final_id'   => $newsletter_final_id,
+        );
+        
+        $this->deleteNewsletterQueueUnready($param);
+        
+        foreach ($newsletter_final_id as $id)
+        {
+            $param = array
+            (
+                'addressee_id'          => $addressee_id,
+                'newsletter_final_id'   => $id,
+            );
+
+            $this->addNewsletterQueueReady($param);
+        }
+    }
+    
+    /**
+     * 
+     * @param mixed $addressee_id
+     * @return array
+     */
+    public function setUnreadNewsletter($addressee_id, $newsletter_final_id)
+    {
+        if (is_scalar($newsletter_final_id))
+        {
+            $newsletter_final_id = array
+            (
+                $newsletter_final_id,
+            );
+        }
+        
+        $param = array
+        (
+            'addressee_id'          => $addressee_id,
+            'newsletter_final_id'   => $newsletter_final_id,
+        );
+        
+        $this->deleteNewsletterQueueReady($param);
+        
+        foreach ($newsletter_final_id as $id)
+        {
+            $param = array
+            (
+                'addressee_id'          => $addressee_id,
+                'newsletter_final_id'   => $id,
+            );
+
+            $this->addNewsletterQueueUnready($param);
+        }
+    }
 }
 
