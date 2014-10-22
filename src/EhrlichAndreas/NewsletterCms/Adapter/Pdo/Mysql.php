@@ -320,7 +320,7 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
-        $query[] = 'PRIMARY KEY (`email_template_id`), ';
+        $query[] = 'PRIMARY KEY (`newsletter_final_id`), ';
         $query[] = 'KEY `idx_newsletter_template_id` (`newsletter_template_id`), ';
         $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
         $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
