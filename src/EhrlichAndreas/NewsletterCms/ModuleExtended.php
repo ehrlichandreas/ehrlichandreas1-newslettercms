@@ -544,7 +544,7 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
      * @param mixed $addressee_id
      * @return array
      */
-    public function getReadNewsletterByAddresseeId($addressee_id)
+    public function getReadyNewsletterByAddresseeId($addressee_id)
     {
         $param = array
         (
@@ -578,7 +578,7 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
      * @param mixed $addressee_id
      * @return array
      */
-    public function getUnreadNewsletterByAddresseeId($addressee_id)
+    public function getUnreadyNewsletterByAddresseeId($addressee_id)
     {
         $param = array
         (
@@ -612,7 +612,7 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
      * @param mixed $addressee_id
      * @return array
      */
-    public function setReadNewsletter($addressee_id, $newsletter_final_id)
+    public function setReadyNewsletter($addressee_id, $newsletter_final_id)
     {
         if (is_scalar($newsletter_final_id))
         {
@@ -665,7 +665,7 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
      * @param mixed $addressee_id
      * @return array
      */
-    public function setUnreadNewsletter($addressee_id, $newsletter_final_id)
+    public function setUnreadyNewsletter($addressee_id, $newsletter_final_id)
     {
         if (is_scalar($newsletter_final_id))
         {
