@@ -581,6 +581,8 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
             $newsletterFinal['updated'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['updated'];
             
             $newsletterFinal['published'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['published'];
+            
+            $newsletterFinalRowset[$key] = $newsletterFinal;
         }
         
         return $newsletterFinalRowset;
@@ -628,6 +630,8 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
             $newsletterFinal['updated'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['updated'];
             
             $newsletterFinal['published'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['published'];
+            
+            $newsletterFinalRowset[$key] = $newsletterFinal;
         }
         
         return $newsletterFinalRowset;
