@@ -551,13 +551,19 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
             'addressee_id'  => $addressee_id,
         );
         
-        $queueUnreadyRowset = $this->getNewsletterQueueReady($param);
+        $queueRowset = $this->getNewsletterQueueReady($param);
+        
+        $queueRowsetTmp = array();
+        
+        $newsletterFinalRowset = array();
         
         $newsletter_final_id = array();
         
-        foreach ($queueUnreadyRowset as $queueUnready)
+        foreach ($queueRowset as $queue)
         {
-            $newsletter_final_id[$queueUnready['newsletter_final_id']] = $queueUnready['newsletter_final_id'];
+            $newsletter_final_id[$queue['newsletter_final_id']] = $queue['newsletter_final_id'];
+            
+            $queueRowsetTmp[$queue['newsletter_final_id']] = $queue;
         }
         
         if (!empty($newsletter_final_id))
@@ -567,10 +573,17 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
                 'newsletter_final_id'   => $newsletter_final_id,
             );
         
-            return $this->getNewsletterFinal($param);
+            $newsletterFinalRowset = $this->getNewsletterFinal($param);
         }
         
-        return array();
+        foreach ($newsletterFinalRowset as $key => $newsletterFinal)
+        {
+            $newsletterFinal['updated'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['updated'];
+            
+            $newsletterFinal['published'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['published'];
+        }
+        
+        return $newsletterFinalRowset;
     }
     
     /**
@@ -585,13 +598,19 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
             'addressee_id'  => $addressee_id,
         );
         
-        $queueUnreadyRowset = $this->getNewsletterQueueUnready($param);
+        $queueRowset = $this->getNewsletterQueueUnready($param);
+        
+        $queueRowsetTmp = array();
+        
+        $newsletterFinalRowset = array();
         
         $newsletter_final_id = array();
         
-        foreach ($queueUnreadyRowset as $queueUnready)
+        foreach ($queueRowset as $queue)
         {
-            $newsletter_final_id[$queueUnready['newsletter_final_id']] = $queueUnready['newsletter_final_id'];
+            $newsletter_final_id[$queue['newsletter_final_id']] = $queue['newsletter_final_id'];
+            
+            $queueRowsetTmp[$queue['newsletter_final_id']] = $queue;
         }
         
         if (!empty($newsletter_final_id))
@@ -601,10 +620,17 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
                 'newsletter_final_id'   => $newsletter_final_id,
             );
         
-            return $this->getNewsletterFinal($param);
+            $newsletterFinalRowset = $this->getNewsletterFinal($param);
         }
         
-        return array();
+        foreach ($newsletterFinalRowset as $key => $newsletterFinal)
+        {
+            $newsletterFinal['updated'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['updated'];
+            
+            $newsletterFinal['published'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['published'];
+        }
+        
+        return $newsletterFinalRowset;
     }
     
     /**
