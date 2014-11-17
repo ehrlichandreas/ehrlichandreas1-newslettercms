@@ -544,12 +544,17 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
      * @param mixed $addressee_id
      * @return array
      */
-    public function getReadyNewsletterByAddresseeId($addressee_id)
+    public function getReadyNewsletterByAddresseeId($addressee_id, $newsletter_final_id = null)
     {
         $param = array
         (
             'addressee_id'  => $addressee_id,
         );
+        
+        if (! is_null($newsletter_final_id))
+        {
+            $param['newsletter_final_id'] = $newsletter_final_id;
+        }
         
         $queueRowset = $this->getNewsletterQueueReady($param);
         
@@ -593,12 +598,17 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
      * @param mixed $addressee_id
      * @return array
      */
-    public function getUnreadyNewsletterByAddresseeId($addressee_id)
+    public function getUnreadyNewsletterByAddresseeId($addressee_id, $newsletter_final_id = null)
     {
         $param = array
         (
             'addressee_id'  => $addressee_id,
         );
+        
+        if (! is_null($newsletter_final_id))
+        {
+            $param['newsletter_final_id'] = $newsletter_final_id;
+        }
         
         $queueRowset = $this->getNewsletterQueueUnready($param);
         
