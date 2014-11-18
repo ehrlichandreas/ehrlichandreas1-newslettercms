@@ -558,8 +558,6 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         
         $queueRowset = $this->getNewsletterQueueReady($param);
         
-        $queueRowsetTmp = array();
-        
         $newsletterFinalRowset = array();
         
         $newsletter_final_id = array();
@@ -567,8 +565,6 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         foreach ($queueRowset as $queue)
         {
             $newsletter_final_id[$queue['newsletter_final_id']] = $queue['newsletter_final_id'];
-            
-            $queueRowsetTmp[$queue['newsletter_final_id']] = $queue;
         }
         
         if (!empty($newsletter_final_id))
@@ -579,18 +575,33 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
             );
         
             $newsletterFinalRowset = $this->getNewsletterFinal($param);
+            
+            $newsletterFinalRowsetTmp = array();
+            
+            foreach($newsletterFinalRowset as $newsletterFinal)
+            {
+                $newsletterFinalRowsetTmp[$newsletterFinal['newsletter_final_id']] = $newsletterFinal;
+            }
+            
+            $newsletterFinalRowset = $newsletterFinalRowsetTmp;
         }
         
-        foreach ($newsletterFinalRowset as $key => $newsletterFinal)
+        foreach($queueRowset as $key => $queue)
         {
-            $newsletterFinal['updated'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['updated'];
+            $updated = $queue['updated'];
             
-            $newsletterFinal['published'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['published'];
+            $published = $queue['published'];
             
-            $newsletterFinalRowset[$key] = $newsletterFinal;
+            $queue = array_merge($queue, $newsletterFinalRowset[$queue['newsletter_final_id']]);
+            
+            $queue['updated'] = $updated;
+            
+            $queue['published'] = $published;
+            
+            $queueRowset[$key] = $queue;
         }
         
-        return $newsletterFinalRowset;
+        return $queueRowset;
     }
     
     /**
@@ -612,8 +623,6 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         
         $queueRowset = $this->getNewsletterQueueUnready($param);
         
-        $queueRowsetTmp = array();
-        
         $newsletterFinalRowset = array();
         
         $newsletter_final_id = array();
@@ -621,8 +630,6 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
         foreach ($queueRowset as $queue)
         {
             $newsletter_final_id[$queue['newsletter_final_id']] = $queue['newsletter_final_id'];
-            
-            $queueRowsetTmp[$queue['newsletter_final_id']] = $queue;
         }
         
         if (!empty($newsletter_final_id))
@@ -633,18 +640,33 @@ class EhrlichAndreas_NewsletterCms_ModuleExtended extends EhrlichAndreas_Newslet
             );
         
             $newsletterFinalRowset = $this->getNewsletterFinal($param);
+            
+            $newsletterFinalRowsetTmp = array();
+            
+            foreach($newsletterFinalRowset as $newsletterFinal)
+            {
+                $newsletterFinalRowsetTmp[$newsletterFinal['newsletter_final_id']] = $newsletterFinal;
+            }
+            
+            $newsletterFinalRowset = $newsletterFinalRowsetTmp;
         }
         
-        foreach ($newsletterFinalRowset as $key => $newsletterFinal)
+        foreach($queueRowset as $key => $queue)
         {
-            $newsletterFinal['updated'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['updated'];
+            $updated = $queue['updated'];
             
-            $newsletterFinal['published'] = $queueRowsetTmp[$newsletterFinal['newsletter_final_id']]['published'];
+            $published = $queue['published'];
             
-            $newsletterFinalRowset[$key] = $newsletterFinal;
+            $queue = array_merge($queue, $newsletterFinalRowset[$queue['newsletter_final_id']]);
+            
+            $queue['updated'] = $updated;
+            
+            $queue['published'] = $published;
+            
+            $queueRowset[$key] = $queue;
         }
         
-        return $newsletterFinalRowset;
+        return $queueRowset;
     }
     
     /**
