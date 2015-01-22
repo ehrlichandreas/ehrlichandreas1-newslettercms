@@ -228,8 +228,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'PRIMARY KEY (`addressee_properties_id`), ';
         $query[] = 'KEY `idx_addressee_id_field_name` (`addressee_id`, `field_name`), ';
         $query[] = 'KEY `idx_field_name_addressee_id` (`field_name`, `addressee_id`), ';
-        $query[] = 'KEY `idx_field_name_field_value_addressee_id` (`field_name` (45), `field_value` (255), `addressee_id`), ';
-        $query[] = 'KEY `idx_field_value_addressee_id` (`field_value` (255), `addressee_id`) ';
+        $query[] = 'KEY `idx_field_name_field_value_addressee_id` (`field_name` (45), `field_value` (45), `addressee_id`), ';
+        $query[] = 'KEY `idx_field_value_addressee_id` (`field_value` (45), `addressee_id`) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
@@ -296,8 +296,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = 'PRIMARY KEY (`email_template_id`), ';
-        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
-        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = 'KEY `idx_name_title` (`name` (45), `title` (45)), ';
+        $query[] = 'KEY `idx_title_name` (`title` (45), `name` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
@@ -322,8 +322,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = 'PRIMARY KEY (`newsletter_final_id`), ';
         $query[] = 'KEY `idx_newsletter_template_id` (`newsletter_template_id`), ';
-        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
-        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = 'KEY `idx_name_title` (`name` (45), `title` (45)), ';
+        $query[] = 'KEY `idx_title_name` (`title` (45), `name` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
@@ -346,8 +346,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = 'PRIMARY KEY (`newsletter_template_id`), ';
-        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
-        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = 'KEY `idx_name_title` (`name` (45), `title` (45)), ';
+        $query[] = 'KEY `idx_title_name` (`title` (45), `name` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
@@ -413,8 +413,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`title` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT \'\', ';
         $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = 'PRIMARY KEY (`project_id`), ';
-        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
-        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = 'KEY `idx_name_title` (`name` (45), `title` (45)), ';
+        $query[] = 'KEY `idx_title_name` (`title` (45), `name` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
@@ -439,8 +439,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = 'PRIMARY KEY (`text_final_id`), ';
         $query[] = 'KEY `idx_text_template_id` (`text_template_id`), ';
-        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
-        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = 'KEY `idx_name_title` (`name` (45), `title` (45)), ';
+        $query[] = 'KEY `idx_title_name` (`title` (45), `name` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
@@ -463,8 +463,8 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = '`description` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = '`content` TEXT COLLATE utf8_unicode_ci NOT NULL, ';
         $query[] = 'PRIMARY KEY (`text_template_id`), ';
-        $query[] = 'KEY `idx_name_title` (`name`, `title`), ';
-        $query[] = 'KEY `idx_title_name` (`title`, `name`) ';
+        $query[] = 'KEY `idx_name_title` (`name` (45), `title` (45)), ';
+        $query[] = 'KEY `idx_title_name` (`title` (45), `name` (45)) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
         $query[] = 'DEFAULT CHARACTER SET = utf8 ';
