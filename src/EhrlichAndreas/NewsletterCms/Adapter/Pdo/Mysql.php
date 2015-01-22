@@ -228,7 +228,7 @@ class EhrlichAndreas_NewsletterCms_Adapter_Pdo_Mysql extends EhrlichAndreas_Abst
         $query[] = 'PRIMARY KEY (`addressee_properties_id`), ';
         $query[] = 'KEY `idx_addressee_id_field_name` (`addressee_id`, `field_name`), ';
         $query[] = 'KEY `idx_field_name_addressee_id` (`field_name`, `addressee_id`), ';
-        $query[] = 'KEY `idx_field_name_field_value_addressee_id` (`field_name`, `field_value` (255), `addressee_id`), ';
+        $query[] = 'KEY `idx_field_name_field_value_addressee_id` (`field_name` (45), `field_value` (255), `addressee_id`), ';
         $query[] = 'KEY `idx_field_value_addressee_id` (`field_value` (255), `addressee_id`) ';
         $query[] = ') ';
         $query[] = 'ENGINE = InnoDB ';
